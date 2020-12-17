@@ -1,0 +1,23 @@
+[Unit]
+Description=the_akkadian
+After=syslog.target local-fs.target network.target
+
+[Exec]
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/the_akkadian/build
+
+[Service]
+User=pi
+Group=pi
+Type=forking
+WorkingDirectory=/home/pi/the_akkadian/build
+ExecStart=/home/pi/the_akkadian/start.sh
+ExecStop=/home/pi/the_akkadian/stop.sh
+PIDFile=/home/pi/the_akkadian/build/akkadian.pid
+Restart=always
+RestartSec=15s
+
+
+[Install]
+WantedBy=multi-user.target
