@@ -17,7 +17,7 @@ namespace akkadian
 {
 
 	enum ServiceStatusEnum : uint8_t
-	{
+		{
 		UNKNOWN = 0x00,
 		READY = 0x01,
 		STARTING = 0x02,

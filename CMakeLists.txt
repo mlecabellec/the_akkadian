@@ -16,7 +16,9 @@ find_package( OpenCV REQUIRED )
 
 include(CTest)
 
-include_directories( ${PROJECT_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+add_subdirectory(cpp-properties)
+
+include_directories( ${PROJECT_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} cpp-properties/include)
 add_executable(the_akkadian
     src/Main.cpp
     src/CameraHandler.cpp
@@ -24,6 +26,7 @@ add_executable(the_akkadian
     src/SerialService.cpp
     src/GpioService.cpp
     src/ImageWriter.cpp
+    src/EastTextLocatorService.cpp
     )
 
 target_link_libraries( the_akkadian ${OpenCV_LIBS} ${Boost_LIBS} wiringPi)

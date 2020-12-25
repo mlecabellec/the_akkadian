@@ -7,10 +7,14 @@
 
 #include "Main.hpp"
 
+#include <iostream>
+#include "PropertiesParser.h"
+
 namespace akkadian
 {
 	using namespace akkadian;
 	using namespace std;
+	using namespace cppproperties;
 
 	Main::Main()
 	{
@@ -34,25 +38,23 @@ namespace akkadian
 		}
 
 		//this->_cameraHandlerCenter = new CameraHandler("/dev/video0",1280,720);
-		this->_cameraHandlerCenter = new CameraHandler(CONFIG_CAMERAS.find("POSITION_CENTER")->second);
+		this->_mainCameraHandler = new CameraHandler(CONFIG_CAMERAS.find("POSITION_CENTER")->second);
 
-		this->_centerImageWriter = new ImageWriter(CONFIG_CAMZONES.find("centerCameraFullZone")->second);
+		this->_mainImageWriter = new ImageWriter(CONFIG_CAMZONES.find("centerCameraFullZone")->second);
 
 		this->_serialService = new SerialService(CONFIG_MAIN_SERIAL_PORT);
 		this->_gpioService = new GpioService();
 	
 
-		bool isOk = this->_cameraHandlerCenter->init();
-		isOk = isOk ? this->_cameraHandlerBlue->init() : false;
-		isOk = isOk ? this->_cameraHandlerYellow->init() : false;
+		bool isOk = this->_mainCameraHandler->init();
 		isOk = isOk ? this->_serialService->init() : false;
 
 		isOk = isOk ? this->_gpioService->init() : false;
 
-		isOk = isOk ? this->_centerImageWriter->init() : false;
+		isOk = isOk ? this->_mainImageWriter->init() : false;
 
 
-		isOk = isOk ? this->_cameraHandlerCenter->addFrameHandler(this->_centerImageWriter) : false;
+		isOk = isOk ? this->_mainCameraHandler->addFrameHandler(this->_mainImageWriter) : false;
 
 
 
@@ -85,7 +87,7 @@ namespace akkadian
 		this->_status = ServiceStatusEnum::STARTING;
 		this->_thread = new thread(&Main::run, this);
 
-		bool isOk = this->_cameraHandlerCenter->start();
+		bool isOk = this->_mainCameraHandler->start();
 
 
 		
@@ -93,9 +95,7 @@ namespace akkadian
 		if (!isOk)
 		{
 			std::cout << "Main::start(), Failed to start every camera handlers, stopping... \r\n";
-			this->_cameraHandlerCenter->stop();
-			this->_cameraHandlerBlue->stop();
-			this->_cameraHandlerYellow->stop();
+			this->_mainCameraHandler->stop();
 
 			this->_status = ServiceStatusEnum::FAILED;
 			return false;
@@ -109,7 +109,7 @@ namespace akkadian
 
 
 
-		isOk = isOk ? this->_centerImageWriter->start() : false;
+		isOk = isOk ? this->_mainImageWriter->start() : false;
 
 
 		if (isOk)
@@ -135,12 +135,12 @@ namespace akkadian
 		}
 
 		this->_status = ServiceStatusEnum::STOPPING;
-		bool isOk = this->_cameraHandlerCenter->stop();
+		bool isOk = this->_mainCameraHandler->stop();
 		isOk = isOk ? this->_serialService->stop() : false;
 		isOk = isOk ? this->_gpioService->stop() : false;
 
 
-		isOk = isOk ? this->_centerImageWriter->stop() : false;
+		isOk = isOk ? this->_mainImageWriter->stop() : false;
 
 	
 		//this->_thread->join();
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
 {
 	std::cout << "AKKADIAN-ALT-1 2020-10-29/004\r\n";
 	akkadian::Main *main = new akkadian::Main();
-
+	
 	main->init();
 	main->start();
 	main->getThread()->join();

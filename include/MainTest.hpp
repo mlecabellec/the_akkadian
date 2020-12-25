@@ -42,7 +42,7 @@ namespace akkadian
 		void run();
 
 
-		CameraHandler *_cameraHandlerCenter;
+		CameraHandler *_mainCameraHandler;
 		CameraHandler *_cameraHandlerYellow;
 		CameraHandler *_cameraHandlerBlue;
 

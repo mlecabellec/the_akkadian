@@ -11,14 +11,11 @@
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
 #include "CameraHandler.hpp"
-#include "WeatherVaneDetector.hpp"
 #include "AkkadianService.hpp"
 #include "GpioService.hpp"
 #include "SerialService.hpp"
 #include "Configuration.hpp"
 #include "ImageWriter.hpp"
-#include "BuoyCodeDetector.hpp"
-#include "ArucoDetector.hpp"
 #include <chrono>
 #include <string>
 #include <thread>
@@ -43,15 +40,10 @@ namespace akkadian
 		bool reset();
 		void run();
 
-		CameraHandler *_cameraHandlerCenter;
-		CameraHandler *_cameraHandlerYellow;
-		CameraHandler *_cameraHandlerBlue;
+		CameraHandler *_mainCameraHandler;
 
-		ImageWriter *_centerImageWriter;
-		ImageWriter *_yellowSideImageWriter;
-		ImageWriter *_blueSideImageWriter;
-		ImageWriter *_blueSideWeatherVaneImageWriter;
-		ImageWriter *_yellowSideWeatherVaneImageWriter;
+
+		ImageWriter *_mainImageWriter;
 
 		SerialService *_serialService;
 		GpioService *_gpioService;
