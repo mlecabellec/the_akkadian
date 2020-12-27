@@ -10,3 +10,6 @@
 [submodule "WiringPi"]
 	path = WiringPi
 	url = https://github.com/WiringPi/WiringPi
+[submodule "picotts"]
+	path = picotts
+	url = https://github.com/naggety/picotts.git

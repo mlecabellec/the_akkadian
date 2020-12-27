@@ -18,12 +18,17 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 
 include(CTest)
 
+set(CMAKE_CXX_FLAGS  "-O3")
+
 add_subdirectory(cpp-properties)
 add_subdirectory(opencv)
 add_subdirectory(tesseract)
-#add_subdirectory(WiringPi)
 
-#Rewiring some includes
+
+
+#set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
+
+#Rewiring some includes from opencv
 include_directories( ${PROJECT_SOURCE_DIR}/include include opencv/include tesseract/include/tesseract cpp-properties/include)
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/include ${PROJECT_SOURCE_DIR}/opencv/include/opencv2)
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/core/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/core/include)
@@ -38,9 +43,15 @@ include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/photo/include/opencv2 
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/stitching/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/stitching/include)
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/video/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/video/include)
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/videoio/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/videoio/include)
+include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/dnn/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/dnn/include)
+include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/flann/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/flann/include)
+include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/calib3d/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/calib3d/include)
 
-
+#Integration of WiringPi
 include_directories( ${PROJECT_SOURCE_DIR}/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/devLib)
+
+#Integration of picotts
+include_directories( ${PROJECT_SOURCE_DIR}/picotts/pico/lib)
 
 add_executable(the_akkadian
     src/Main.cpp
@@ -51,16 +62,7 @@ add_executable(the_akkadian
     src/ImageWriter.cpp
     src/EastTextLocatorService.cpp
 
-    WiringPi/devLib/piFaceOld.c
-    WiringPi/devLib/piGlow.c
-    WiringPi/devLib/maxdetect.c
-    WiringPi/devLib/piFace.c
-    WiringPi/devLib/piNes.c
-    WiringPi/devLib/lcd128x64.c
-    WiringPi/devLib/gertboard.c
-    WiringPi/devLib/scrollPhat.c
-    WiringPi/devLib/ds1302.c
-    WiringPi/devLib/lcd.c
+
     WiringPi/wiringPi/wiringPiI2C.c
     WiringPi/wiringPi/mcp23017.c
     WiringPi/wiringPi/bmp180.c
@@ -95,9 +97,45 @@ add_executable(the_akkadian
     WiringPi/wiringPi/ds18b20.c
     WiringPi/wiringPi/wiringPiSPI.c
     WiringPi/wiringPi/pseudoPins.c
+
+    picotts/pico/lib/picoktab.c
+    picotts/pico/lib/picosa.c
+    picotts/pico/lib/picokpdf.c
+    picotts/pico/lib/picokpr.c
+    picotts/pico/lib/picoapi.c
+    picotts/pico/lib/picosig2.c
+    picotts/pico/lib/picodata.c
+    picotts/pico/lib/picopam.c
+    picotts/pico/lib/picowa.c
+    picotts/pico/lib/picokfst.c
+    picotts/pico/lib/picopr.c
+    picotts/pico/lib/picoknow.c
+    picotts/pico/lib/picokdt.c
+    picotts/pico/lib/picoklex.c
+    picotts/pico/lib/picorsrc.c
+    picotts/pico/lib/picoctrl.c
+    picotts/pico/lib/picoextapi.c
+    picotts/pico/lib/picobase.c
+    picotts/pico/lib/picosig.c
+    picotts/pico/lib/picoos.c
+    picotts/pico/lib/picokdbg.c
+    picotts/pico/lib/picodbg.c
+    picotts/pico/lib/picocep.c
+    picotts/pico/lib/picotok.c
+    picotts/pico/lib/picofftsg.c
+    picotts/pico/lib/picotrns.c
+    picotts/pico/lib/picoacph.c
+    picotts/pico/lib/picopal.c
+    picotts/pico/lib/picospho.c
+    
+
+
     )
 
-target_link_libraries( the_akkadian opencv_core opencv_features2d opencv_videoio opencv_highgui )
+    
+#set(LINK_FLAGS ${LINK_FLAGS} "-Wl,-whole-archive")
+
+target_link_libraries( the_akkadian opencv_core opencv_features2d opencv_videoio crypt pthread libtesseract rt m)
 
 
 
