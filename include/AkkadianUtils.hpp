@@ -12,7 +12,7 @@
 #include <thread>
 #include <mutex>
 #include <iostream>
-#include <opencv2/opencv.hpp>
+#include "opencv.hpp"
 
 namespace akkadian
 {

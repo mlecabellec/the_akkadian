@@ -12,7 +12,7 @@
 #include <mutex>
 #include <string>
 
-#include <opencv2/opencv.hpp>
+#include "opencv.hpp"
 #include <iostream>
 #include "AkkadianService.hpp"
 #include <list>

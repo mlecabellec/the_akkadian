@@ -9,7 +9,7 @@
 #define MAIN_H_
 
 #include <stdio.h>
-#include <opencv2/opencv.hpp>
+#include "opencv.hpp"
 #include "CameraHandler.hpp"
 #include "WeatherVaneDetector.hpp"
 #include "AkkadianService.hpp"
