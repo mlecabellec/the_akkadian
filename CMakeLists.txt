@@ -40,7 +40,7 @@ include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/video/include/opencv2 
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/videoio/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/videoio/include)
 
 
-include_directories( ${PROJECT_SOURCE_DIR}/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/WiringPiD ${PROJECT_SOURCE_DIR}/WiringPi/devLib)
+include_directories( ${PROJECT_SOURCE_DIR}/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/devLib)
 
 add_executable(the_akkadian
     src/Main.cpp
@@ -95,18 +95,9 @@ add_executable(the_akkadian
     WiringPi/wiringPi/ds18b20.c
     WiringPi/wiringPi/wiringPiSPI.c
     WiringPi/wiringPi/pseudoPins.c
-    WiringPi/gpio/readall.c
-    WiringPi/gpio/gpio.c
-    WiringPi/wiringPiD/wiringpid.c
-    WiringPi/wiringPiD/network.c
-    WiringPi/wiringPiD/daemonise.c
-    WiringPi/wiringPiD/runRemote.c
-    
-
-
     )
 
-target_link_libraries( the_akkadian )
+target_link_libraries( the_akkadian opencv_core opencv_features2d opencv_videoio opencv_highgui )
 
 
 
