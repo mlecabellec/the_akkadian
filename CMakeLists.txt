@@ -2,11 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 
 project(the_akkadian CXX C)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-#include_directories(PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 #set(Boost_USE_STATIC_LIBS OFF) 
 #set(Boost_USE_MULTITHREADED ON)  
@@ -14,17 +12,16 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 #find_package( Boost REQUIRED ) 
 #find_package( OpenCV REQUIRED )
 
-
-
-include(CTest)
-
 set(CMAKE_CXX_FLAGS  "-O3")
 
 add_subdirectory(cpp-properties)
 add_subdirectory(opencv)
 add_subdirectory(tesseract)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(CTest)
 
 #set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
 
@@ -127,12 +124,9 @@ add_executable(the_akkadian
     picotts/pico/lib/picoacph.c
     picotts/pico/lib/picopal.c
     picotts/pico/lib/picospho.c
-    
-
-
+   
     )
 
-    
 #set(LINK_FLAGS ${LINK_FLAGS} "-Wl,-whole-archive")
 
 target_link_libraries( the_akkadian opencv_core opencv_features2d opencv_videoio crypt pthread libtesseract rt m)
