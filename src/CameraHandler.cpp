@@ -80,7 +80,7 @@ namespace akkadian
 		this->_status = ServiceStatusEnum::STARTING;
 
 		std::cout << "CameraHandler::start(), checking if device is opened...\r\n";
-		bool isOpened = this->_videoCaptur	e->isOpened();
+		bool isOpened = this->_videoCapture->isOpened();
 		if (!isOpened)
 		{
 			std::cout << "CameraHandler::start(), video capture object not open\r\n";
