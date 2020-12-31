@@ -19,6 +19,8 @@ namespace akkadian
         // TODO Auto-generated constructor stub
         this->_frames = new std::queue<std::shared_ptr<Mat>>();
 
+        this->_handlers = new std::map<std::string, FrameHandler *>();
+
         this->_name = std::string("EastTextLocatorService");
     }
 
@@ -155,5 +157,45 @@ namespace akkadian
 
         return true;
     };
+
+    bool EastTextLocatorService::addFrameHandler(FrameHandler *handler)
+    {
+        if (handler == nullptr)
+        {
+            return false;
+        }
+
+        std::pair<std::map<std::string, FrameHandler *>::iterator, bool> result = this->_handlers->insert_or_assign(handler->getId(), handler);
+
+        if (result.second)
+        {
+            std::cout << "CameraHandler::addFrameHandler(), added handler with id " << handler->getId() << "\r\n";
+        }
+        else
+        {
+            std::cout << "CameraHandler::addFrameHandler(), handler with id " << handler->getId() << " NOT ADDED !!\r\n";
+        }
+
+        return result.second;
+    }
+    bool EastTextLocatorService::removeFrameHandler(FrameHandler *handler)
+    {
+        if (handler == nullptr)
+        {
+            return false;
+        }
+
+        std::string id = handler->getId();
+
+        std::map<std::string, FrameHandler *>::iterator it = this->_handlers->find(id);
+        if (it != this->_handlers->end())
+        {
+            this->_handlers->erase(it);
+            std::cout << "CameraHandler::removeFrameHandler(), handler removed " << id << "\r\n";
+            return true;
+        }
+
+        return false;
+    }
 
 } /* namespace akkadian */

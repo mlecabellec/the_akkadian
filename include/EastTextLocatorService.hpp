@@ -38,10 +38,15 @@ namespace akkadian
         void run();
         bool processFrame(std::shared_ptr<cv::Mat> frame, std::string sourceDevice = "", std::chrono::time_point<std::chrono::system_clock> timepoint = std::chrono::system_clock::now()) override;
 
+		bool addFrameHandler(FrameHandler *handler);
+		bool removeFrameHandler(FrameHandler *handler);
+
     private:
         std::chrono::milliseconds _cycleDuration = 1517ms;
         std::queue<std::shared_ptr<Mat>> *_frames;
         std::string _name;
+
+        std::map<std::string, FrameHandler *> *_handlers;
     };
 } /* namespace akkadian */
 
