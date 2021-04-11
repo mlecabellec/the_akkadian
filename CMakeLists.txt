@@ -47,7 +47,7 @@ include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/flann/include/opencv2 
 include_directories( ${PROJECT_SOURCE_DIR}/opencv/modules/calib3d/include/opencv2 ${PROJECT_SOURCE_DIR}/opencv/modules/calib3d/include)
 
 #Integration of WiringPi
-include_directories( ${PROJECT_SOURCE_DIR}/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/devLib)
+include_directories( ${PROJECT_SOURCE_DIR}/WiringPi ${PROJECT_SOURCE_DIR}/WiringPi/wiringPi ${PROJECT_SOURCE_DIR}/WiringPi/devLib)
 
 #Integration of picotts
 include_directories( ${PROJECT_SOURCE_DIR}/picotts/pico/lib)
