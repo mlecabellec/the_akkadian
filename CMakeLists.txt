@@ -131,6 +131,15 @@ add_executable(the_akkadian
 
 #set(LINK_FLAGS ${LINK_FLAGS} "-Wl,-whole-archive")
 
+    configure_file(data/text_detection/frozen_east_text_detection.pb bin/frozen_east_text_detection.pb COPYONLY)
+    configure_file(data/text_recognition/CRNN_VGG_BiLSTM_CTC_float16.onnx bin/CRNN_VGG_BiLSTM_CTC_float16.onnx COPYONLY)
+    configure_file(data/text_recognition/CRNN_VGG_BiLSTM_CTC.onnx bin/CRNN_VGG_BiLSTM_CTC.onnx COPYONLY)
+    configure_file(data/text_recognition/DenseNet_BiLSTM_CTC.onnx bin/DenseNet_BiLSTM_CTC.onnx COPYONLY)
+    configure_file(data/text_recognition/DenseNet_CTC.onnx bin/DenseNet_CTC.onnx COPYONLY)
+    configure_file(data/text_recognition/ResNet_CTC.onnx bin/ResNet_CTC.onnx COPYONLY)
+    configure_file(data/text_recognition/VGG_CTC_float16.onnx bin/VGG_CTC_float16.onnx COPYONLY)
+    configure_file(data/text_recognition/VGG_CTC.onnx bin/VGG_CTC.onnx COPYONLY)
+
 target_link_libraries( the_akkadian opencv_core opencv_features2d opencv_videoio crypt pthread libtesseract rt m)
 
 
