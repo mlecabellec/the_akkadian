@@ -59,7 +59,7 @@ add_executable(the_akkadian
     src/SerialService.cpp
     src/GpioService.cpp
     src/ImageWriter.cpp
-    src/EastTextLocatorService.cpp
+    src/TextLocatorService.cpp
 
 
     WiringPi/wiringPi/wiringPiI2C.c
